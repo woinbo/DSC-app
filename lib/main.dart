@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:DSC/screens/eventDetails/eventDetails.dart';
 import 'package:DSC/screens/onBoardScreen/onBoardingPage.dart';
 import 'package:flutter/cupertino.dart';
@@ -51,28 +49,11 @@ class DSC extends StatelessWidget {
             return PageRouteBuilder(
                 pageBuilder: (_, a1, a2) => EventDetails(), settings: settings);
           default:
-            return CustomPageRoute.build(
-                builder: (_) => OnBoardingScreen(), settings: settings);
+            return PageRouteBuilder(
+                pageBuilder: (_, a1, a2) => OnBoardingScreen(),
+                settings: settings);
         }
       },
     );
-  }
-}
-
-class CustomPageRoute {
-  static PageRoute build({
-    Widget Function(BuildContext) builder,
-    RouteSettings settings,
-    bool fullscreenDialog = false,
-  }) {
-    return Platform.isIOS
-        ? CupertinoPageRoute(
-            builder: builder,
-            settings: settings,
-            fullscreenDialog: fullscreenDialog)
-        : MaterialPageRoute(
-            builder: builder,
-            settings: settings,
-            fullscreenDialog: fullscreenDialog);
   }
 }

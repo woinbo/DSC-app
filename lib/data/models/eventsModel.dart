@@ -16,6 +16,7 @@ class EventModel {
       this.eventMoreInfoLink,
       this.eventPoster,
       this.eventDay,
+      this.eventURL,
       this.secondPageHeading,
       this.secondPageSubHeading,
       this.thirdPageHeading,
@@ -33,6 +34,7 @@ class EventModel {
   String eventMoreInfoLink;
   String eventPoster;
   String eventDay;
+  String eventURL;
   String secondPageHeading;
   String secondPageSubHeading;
   String thirdPageHeading;
@@ -41,20 +43,22 @@ class EventModel {
   List<String> thirdPagePoints;
 
   factory EventModel.fromJson(Map<String, dynamic> json) => EventModel(
-      id: json["id"],
-      eventName: json["eventName"],
-      eventTitle: json["eventTitle"],
-      eventHashTag: json["eventHashTag"],
-      eventDesc: json["eventDesc"],
-      eventDate: json["eventDate"],
-      eventTime: json["eventTime"],
-      eventMoreInfoLink: json["eventMoreInfoLink"],
-      eventPoster: json["eventPoster"],
-      eventDay: json["eventDay"],
-      secondPageHeading: json["secondPageHeading"],
-      secondPageSubHeading: json["secondPageSubHeading"],
-      thirdPageHeading: json["thirdPageHeading"],
-      thirdPageSubHeading: json["thirdPageSubHeading"]);
+        id: json["id"],
+        eventName: json["eventName"],
+        eventTitle: json["eventTitle"],
+        eventHashTag: json["eventHashTag"],
+        eventDesc: json["eventDesc"],
+        eventDate: json["eventDate"],
+        eventTime: json["eventTime"],
+        eventMoreInfoLink: json["eventMoreInfoLink"],
+        eventPoster: json["eventPoster"],
+        eventDay: json["eventDay"],
+        secondPageHeading: json["secondPageHeading"],
+        secondPageSubHeading: json["secondPageSubHeading"],
+        thirdPageHeading: json["thirdPageHeading"],
+        thirdPageSubHeading: json["thirdPageSubHeading"],
+        eventURL: json['eventURL'],
+      );
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -71,6 +75,7 @@ class EventModel {
         "secondPageSubHeading": [secondPageSubHeading],
         "thirdPageHeading": [thirdPageHeading],
         "thirdPageSubHeading": [thirdPageSubHeading],
+        "eventURL": [eventURL],
       };
 }
 
@@ -118,6 +123,8 @@ final List<EventModel> eventsTestData = [
       "4. Publishing to Github pages",
       "5. Activity!",
     ],
+    eventURL:
+        "https://dsc.community.dev/events/details/developer-student-clubs-vellore-institute-of-technology-bhopal-presents-develop-your-first-game-using-javascript/",
   ),
   EventModel(
     id: 2,
@@ -141,6 +148,8 @@ final List<EventModel> eventsTestData = [
       "Date: 15th November 2020",
       "Time: 5 PM",
     ],
+    eventURL:
+        "https://dsc.community.dev/events/details/developer-student-clubs-vellore-institute-of-technology-bhopal-presents-get-it-done-with-the-experts/",
   ),
   EventModel(
     id: 3,
@@ -154,30 +163,35 @@ final List<EventModel> eventsTestData = [
     eventPoster: null,
     eventMoreInfoLink: "https://youtu.be/-E9wT3ZAdzg",
     eventHashTag: "Assistant / Actions on Google",
+    eventURL:
+        "https://dsc.community.dev/events/details/developer-student-clubs-vellore-institute-of-technology-bhopal-presents-inaugural-ceremony-of-dsc-vit-bhopal/",
   ),
   EventModel(
-      id: 4,
-      eventName: "Information Session, DSC VIT BHOPAL",
-      eventTitle: "Information Session, DSC VIT BHOPAL",
-      eventDesc:
-          "Developer Student Clubs are university based community groups for students interested in Google developer technologies. Students from all undergraduate or graduate programs with an interest in growing as a developer are welcome. By joining a DSC, students grow their knowledge in a peer-to-peer learning environment and build solutions for local businesses and their community.",
-      eventDate: "4th October",
-      eventTime: "12:00 PM",
-      eventDay: "Sun",
-      eventPoster: null,
-      eventMoreInfoLink: "https://youtu.be/-E9wT3ZAdzg",
-      eventHashTag: "InformationSession",
-      secondPageSubHeading: "The Event will walk you through the following:",
-      secondPagePoints: [
-        "What is DSC",
-        "Why you should join DSC",
-        "Rules at Developer Student Club VIT",
-        "Meet the Team",
-        "Opportunities DSCs provide to students",
-        "Topics we plan to incorporate in our sessions",
-        "Events and Activities",
-        "Working Methodology",
-        "Perks of Joining DSC",
-        "And a fun activity - Kahoot Session",
-      ]),
+    id: 4,
+    eventName: "Information Session, DSC VIT BHOPAL",
+    eventTitle: "Information Session, DSC VIT BHOPAL",
+    eventDesc:
+        "Developer Student Clubs are university based community groups for students interested in Google developer technologies. Students from all undergraduate or graduate programs with an interest in growing as a developer are welcome. By joining a DSC, students grow their knowledge in a peer-to-peer learning environment and build solutions for local businesses and their community.",
+    eventDate: "4th October",
+    eventTime: "12:00 PM",
+    eventDay: "Sun",
+    eventPoster: null,
+    eventMoreInfoLink: "https://youtu.be/-E9wT3ZAdzg",
+    eventHashTag: "InformationSession",
+    secondPageSubHeading: "The Event will walk you through the following:",
+    secondPagePoints: [
+      "What is DSC",
+      "Why you should join DSC",
+      "Rules at Developer Student Club VIT",
+      "Meet the Team",
+      "Opportunities DSCs provide to students",
+      "Topics we plan to incorporate in our sessions",
+      "Events and Activities",
+      "Working Methodology",
+      "Perks of Joining DSC",
+      "And a fun activity - Kahoot Session",
+    ],
+    eventURL:
+        "https://dsc.community.dev/events/details/developer-student-clubs-vellore-institute-of-technology-bhopal-presents-introduction-to-open-source-and-git/",
+  ),
 ];

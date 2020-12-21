@@ -2,6 +2,7 @@ import 'package:DSC/constants.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:DSC/data/models/onBoardingModel.dart';
+import 'package:DSC/widgets/pageIndicator.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   @override
@@ -21,21 +22,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Widget _buildPageIndicator(bool isCurrentPage, Color color) {
-      return Container(
-        margin: EdgeInsets.symmetric(horizontal: 2.0),
-        height: isCurrentPage ? 10.0 : 6.0,
-        width: isCurrentPage ? 10.0 : 6.0,
-        decoration: BoxDecoration(
-          color: isCurrentPage ? color : Colors.transparent,
-          border: isCurrentPage
-              ? Border.all(color: Colors.transparent)
-              : Border.all(color: color),
-          borderRadius: BorderRadius.circular(12),
-        ),
-      );
-    }
-
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -137,14 +123,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       children: [
                         for (int i = 0; i < 3; i++)
                           i == slideIndex
-                              ? _buildPageIndicator(
+                              ? buildPageIndicator(
                                   true,
                                   Constants.googleLogoColorsList[
                                       Constants.googleLogoColorsList.length -
                                           i -
                                           1],
                                 )
-                              : _buildPageIndicator(
+                              : buildPageIndicator(
                                   false,
                                   Constants.googleLogoColorsList[
                                       Constants.googleLogoColorsList.length -

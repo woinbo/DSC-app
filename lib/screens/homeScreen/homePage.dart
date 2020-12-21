@@ -1,6 +1,5 @@
 import 'package:DSC/configs/assets.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:DSC/data/models/eventsModel.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
@@ -27,13 +26,6 @@ class _HomePageState extends State<HomePage> {
                 child: Center(child: Image.asset(Assets.vitb_dsc_logo)),
               ),
             ),
-            // Expanded(
-            //   flex: 2,
-            //   child: Container(
-            //     margin: EdgeInsets.all(8),
-            //     child: SearchBar(),
-            //   ),
-            // ),
             Expanded(
               flex: 8,
               child: Container(
@@ -124,13 +116,16 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
               ),
-            ),
+            )
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: "eventAdd",
         onPressed: () {
-          final snackBar = SnackBar(content: Text('Yay! A SnackBar!'));
+          final snackBar = SnackBar(
+              content: Text(
+                  'On tapping this button, CLUB leader can create an event'));
           _scaffoldKey.currentState.showSnackBar(snackBar);
         },
         tooltip: "Add event",

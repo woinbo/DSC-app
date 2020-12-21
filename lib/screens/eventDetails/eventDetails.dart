@@ -3,6 +3,8 @@ import 'package:DSC/data/models/eventsModel.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
+import 'package:DSC/widgets/pageIndicator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants.dart';
 
@@ -14,8 +16,6 @@ class EventDetails extends StatefulWidget {
 class _EventDetailsState extends State<EventDetails> {
   int slideIndex = 0;
   PageController controller;
-  ScrollController _scrollController = ScrollController();
-
   @override
   void initState() {
     super.initState();
@@ -23,23 +23,14 @@ class _EventDetailsState extends State<EventDetails> {
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final EventModel eventTriggred = ModalRoute.of(context).settings.arguments;
-
-    Widget _buildPageIndicator(bool isCurrentPage, Color color) {
-      return Container(
-        margin: EdgeInsets.only(left: 2.0, right: 2.0, bottom: 5.0),
-        height: isCurrentPage ? 10.0 : 6.0,
-        width: isCurrentPage ? 10.0 : 6.0,
-        decoration: BoxDecoration(
-          color: isCurrentPage ? color : Colors.transparent,
-          border: isCurrentPage
-              ? Border.all(color: Colors.transparent)
-              : Border.all(color: color),
-          borderRadius: BorderRadius.circular(12),
-        ),
-      );
-    }
 
     return Scaffold(
       body: SafeArea(
@@ -202,25 +193,60 @@ class _EventDetailsState extends State<EventDetails> {
                           ],
                         ),
                       ),
-                      Container(
-                        margin: EdgeInsets.only(top: 10, left: 10),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 8,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          border: Border.all(width: 1, color: Colors.white),
-                        ),
-                        child: AutoSizeText(
-                          "#${eventTriggred.eventHashTag}",
-                          minFontSize: 10,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 8,
-                            fontWeight: FontWeight.w900,
+                      Row(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(top: 10, left: 10),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 8,
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              border: Border.all(width: 1, color: Colors.white),
+                            ),
+                            child: AutoSizeText(
+                              "#${eventTriggred.eventHashTag}",
+                              minFontSize: 10,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 8,
+                                fontWeight: FontWeight.w900,
+                              ),
+                            ),
                           ),
-                        ),
+                          GestureDetector(
+                            onTap: () async {
+                              String url = eventTriggred.eventURL;
+                              if (await canLaunch(url)) {
+                                await launch(url);
+                              } else {
+                                throw 'Could not launch $url';
+                              }
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(top: 10, left: 10),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 8,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                border:
+                                    Border.all(width: 1, color: Colors.white),
+                              ),
+                              child: AutoSizeText(
+                                "JOIN us NOW",
+                                minFontSize: 10,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 8,
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -283,18 +309,22 @@ class _EventDetailsState extends State<EventDetails> {
                                 ),
                               ),
                               Expanded(
-                                child: ListView.builder(
-                                  itemCount:
-                                      eventTriggred.secondPagePoints.length,
-                                  itemBuilder: (context, index) {
-                                    return Container(
-                                      margin: EdgeInsets.all(8),
-                                      padding: EdgeInsets.only(left: 10),
-                                      child: AutoSizeText(
-                                        eventTriggred.secondPagePoints[index],
-                                      ),
-                                    );
-                                  },
+                                child: Scrollbar(
+                                  radius: Radius.circular(20),
+                                  thickness: 4,
+                                  child: ListView.builder(
+                                    itemCount:
+                                        eventTriggred.secondPagePoints.length,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        margin: EdgeInsets.all(8),
+                                        padding: EdgeInsets.only(left: 10),
+                                        child: AutoSizeText(
+                                          eventTriggred.secondPagePoints[index],
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 ),
                               ),
                             ],
@@ -325,8 +355,8 @@ class _EventDetailsState extends State<EventDetails> {
                               ),
                               Expanded(
                                 child: Scrollbar(
-                                  controller: _scrollController,
-                                  isAlwaysShown: true,
+                                  radius: Radius.circular(20),
+                                  thickness: 4,
                                   child: ListView.builder(
                                     itemCount:
                                         eventTriggred.secondPagePoints.length,
@@ -360,12 +390,12 @@ class _EventDetailsState extends State<EventDetails> {
                 children: [
                   for (int i = 0; i < 3; i++)
                     i == slideIndex
-                        ? _buildPageIndicator(
+                        ? buildPageIndicator(
                             true,
                             Constants.googleLogoColorsList[
                                 Constants.googleLogoColorsList.length - i - 1],
                           )
-                        : _buildPageIndicator(
+                        : buildPageIndicator(
                             false,
                             Constants.googleLogoColorsList[
                                 Constants.googleLogoColorsList.length - i - 1],
